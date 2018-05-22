@@ -32,7 +32,7 @@ def get_bdata(filename='fremont.csv', url=BIKE_URL,
         urlretrieve(URL,'fremont.csv')
     bdata = pd.read_csv('fremont.csv', index_col='Date')
     try:
-        bdata.index = pd.to_datetime(bdata.index, format='%m/%d/%Y %H:%M:%S %p')
+        bdata.index = pd.to_datetime(bdata.index, format='%m/%d/%Y %I:%M:%S %p')
     except TypeError:
         bdata.index = pd.to_datetime(bdata.index)
 
