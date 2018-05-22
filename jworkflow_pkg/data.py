@@ -30,7 +30,12 @@ def get_bdata(filename='fremont.csv', url=BIKE_URL,
     """
     if force_download or not os.path.exists(filename):
         urlretrieve(URL,'fremont.csv')
-    bdata = pd.read_csv('fremont.csv', index_col='Date', parse_dates=True) 
+    bdata = pd.read_csv('fremont.csv', index_col='Date')
+    try:
+        bdata.index = pd.to_datetime(bdata.index, format='%m/%d/%Y %H:%M:%S %p')
+    except TypeError:
+        bdata.index = pd.to_datetime(bdata.index)
+
     bdata.columns = ['West', 'East']
     bdata['Total'] = bdata['West'] + bdata['East']
     return bdata
